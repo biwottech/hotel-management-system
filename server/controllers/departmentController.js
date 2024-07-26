@@ -8,6 +8,7 @@ exports.createEmployee = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 exports.getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.findAll();
