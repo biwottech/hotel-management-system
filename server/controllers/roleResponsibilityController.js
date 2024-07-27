@@ -14,9 +14,10 @@ exports.getAllRoleResponsibilitys = async (req, res) => {
     const roleResponsibilitys = await RoleResponsibility.findAll({
       include: {
         model: Role,
-        as: "responsibilities",
+        as: "role",
       },
     });
+
     res.json(roleResponsibilitys);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -30,7 +31,7 @@ exports.getRoleResponsibilityById = async (req, res) => {
       {
         include: {
           model: Role,
-          as: "responsibilities",
+          as: "role",
         },
       }
     );

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       RoleResponsibility.belongsTo(models.Role, {
         foreignKey: "roleId",
-        // as: "role",
+        as: "role",
       });
     }
   }

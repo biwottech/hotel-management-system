@@ -1,57 +1,68 @@
-const { Employee, User } = require("../models");
+const { Department } = require("../models");
 
-exports.createEmployee = async (req, res) => {
+exports.createDepartment = async (req, res) => {
   try {
-    const employee = await Employee.create(req.body);
-    res.status(201).json(employee);
+    const department = await Department.create(req.body);
+    res.status(201).json(department);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.getAllEmployees = async (req, res) => {
+exports.getAllDepartments = async (req, res) => {
   try {
-    const employees = await Employee.findAll();
-    res.json(employees);
+    const departments = await Department.findAll({
+      include: {
+        model: Department,
+        as: "sections",
+      },
+    });
+
+    res.json(departments);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.getEmployeeById = async (req, res) => {
+exports.getDepartmentById = async (req, res) => {
   try {
-    const employee = await Employee.findByPk(req.params.id);
-    if (!employee) {
-      return res.status(404).json({ message: "Employee not found" });
+    const department = await Department.findByPk(req.params.id, {
+      include: {
+        model: Department,
+        as: "sections",
+      },
+    });
+    if (!department) {
+      return res.status(404).json({ message: "Department not found" });
     }
-    res.json(employee);
+    res.json(department);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.updateEmployee = async (req, res) => {
+exports.updateDepartment = async (req, res) => {
   try {
-    const [updated] = await Employee.update(req.body, {
+    const [updated] = await Department.update(req.body, {
       where: { id: req.params.id },
     });
     if (!updated) {
-      return res.status(404).json({ message: "Employee not found" });
+      return res.status(404).json({ message: "Department not found" });
     }
-    const updatedEmployee = await Employee.findByPk(req.params.id);
-    res.json(updatedEmployee);
+    const updatedDepartment = await Department.findByPk(req.params.id);
+    res.json(updatedDepartment);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.deleteEmployee = async (req, res) => {
+exports.deleteDepartment = async (req, res) => {
   try {
-    const deleted = await Employee.destroy({
+    const deleted = await Department.destroy({
       where: { id: req.params.id },
     });
     if (!deleted) {
-      return res.status(404).json({ message: "Employee not found" });
+      return res.status(404).json({ message: "Department not found" });
     }
     res.status(204).send();
   } catch (error) {
