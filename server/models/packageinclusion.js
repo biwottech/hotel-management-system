@@ -8,13 +8,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      PackageInclusion.belongsTo(models.Package, {
+        foreignKey: "packageId",
+        as: "package",
+      });
+
+      PackageInclusion.belongsTo(models.Service, {
+        foreignKey: "serviceId",
+        as: "service",
+      });
     }
   }
   PackageInclusion.init(
     {
       packageId: DataTypes.INTEGER,
-      inclusion: DataTypes.STRING,
+      serviceId: DataTypes.INTEGER,
     },
     {
       sequelize,

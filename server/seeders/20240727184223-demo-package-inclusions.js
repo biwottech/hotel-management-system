@@ -3,18 +3,42 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(
+    return await queryInterface.bulkInsert(
       "PackageInclusions",
       [
         {
           packageId: 1,
-          inclusion: "Breakfast",
+          serviceId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          packageId: 1,
+          serviceId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           packageId: 2,
-          inclusion: "All meals and drinks",
+          serviceId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          packageId: 2,
+          serviceId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          packageId: 2,
+          serviceId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          packageId: 2,
+          serviceId: 4,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
