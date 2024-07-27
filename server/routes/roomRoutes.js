@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const roomController = require("../controllers/roomController");
 
-router.post("/rooms", roomController.createRoom);
-router.get("/rooms", roomController.getRooms);
-router.get("/rooms/:id", roomController.getRoom);
-router.put("/rooms/:id", roomController.updateRoom);
-router.delete("/rooms/:id", roomController.deleteRoom);
+router.post("/", roomController.createRoom);
+router.get("/", roomController.getRooms);
+router.get("/:id", roomController.getRoom);
+router.put("/:id", roomController.updateRoom);
+router.delete("/:id", roomController.deleteRoom);
 
 module.exports = router;

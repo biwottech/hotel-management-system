@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const packageController = require("../controllers/packageController");
 
-router.post("/packages", packageController.createPackage);
-router.get("/packages", packageController.getPackages);
-router.get("/packages/:id", packageController.getPackage);
-router.put("/packages/:id", packageController.updatePackage);
-router.delete("/packages/:id", packageController.deletePackage);
+router.post("/", packageController.createPackage);
+router.get("/", packageController.getPackages);
+router.get("/:id", packageController.getPackage);
+router.put("/:id", packageController.updatePackage);
+router.delete("/:id", packageController.deletePackage);
 
 module.exports = router;

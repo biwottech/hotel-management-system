@@ -17,7 +17,7 @@ exports.createPackage = async (req, res) => {
 exports.getPackages = async (req, res) => {
   try {
     const packages = await Package.findAll({
-      include: [PackageInclusion],
+      include: [{ model: PackageInclusion, as: "packageInclusions" }],
     });
     res.status(200).json(packages);
   } catch (error) {
@@ -28,8 +28,9 @@ exports.getPackages = async (req, res) => {
 exports.getPackage = async (req, res) => {
   try {
     const pkg = await Package.findByPk(req.params.id, {
-      include: [PackageInclusion],
+      include: [{ model: PackageInclusion, as: "packageInclusions" }],
     });
+
     if (pkg) {
       res.status(200).json(pkg);
     } else {

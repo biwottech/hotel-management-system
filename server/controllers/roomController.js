@@ -1,4 +1,5 @@
 const { Room, RoomType, ComfortLevel } = require("../models");
+const roomtype = require("../models/roomtype");
 
 exports.createRoom = async (req, res) => {
   try {
@@ -12,7 +13,10 @@ exports.createRoom = async (req, res) => {
 exports.getRooms = async (req, res) => {
   try {
     const rooms = await Room.findAll({
-      include: [RoomType, ComfortLevel],
+      include: [
+        { model: RoomType, as: "roomTypes" },
+        { model: ComfortLevel, as: "comfortLevels" },
+      ],
     });
     res.status(200).json(rooms);
   } catch (error) {
@@ -23,7 +27,10 @@ exports.getRooms = async (req, res) => {
 exports.getRoom = async (req, res) => {
   try {
     const room = await Room.findByPk(req.params.id, {
-      include: [RoomType, ComfortLevel],
+      include: [
+        { model: RoomType, as: "roomTypes" },
+        { model: ComfortLevel, as: "comfortLevels" },
+      ],
     });
     if (room) {
       res.status(200).json(room);
@@ -40,6 +47,7 @@ exports.updateRoom = async (req, res) => {
     const [updated] = await Room.update(req.body, {
       where: { id: req.params.id },
     });
+
     if (updated) {
       const room = await Room.findByPk(req.params.id);
       res.status(200).json(room);
