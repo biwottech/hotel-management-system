@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "parentDepartment",
         foreignKey: "parent",
       });
+
+      Department.hasMany(models.MenuItem, {
+        foreignKey: "departmentId",
+        as: "menuItems",
+      });
     }
   }
   Department.init(
