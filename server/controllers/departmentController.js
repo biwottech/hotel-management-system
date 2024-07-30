@@ -1,3 +1,4 @@
+const { where, Op } = require("sequelize");
 const { Department } = require("../models");
 
 exports.createDepartment = async (req, res) => {
@@ -11,12 +12,44 @@ exports.createDepartment = async (req, res) => {
 
 exports.getAllDepartments = async (req, res) => {
   try {
-    const departments = await Department.findAll({
-      include: {
-        model: Department,
-        as: "sections",
+    const departments = await Department.findAll(
+      {
+        where: {
+          parent: {
+            [Op.is]: null,
+          },
+        },
       },
-    });
+      {
+        include: {
+          model: Department,
+          as: "sections",
+        },
+      },
+      {
+        order: [["id", "ASC"]],
+      }
+    );
+
+    res.json(departments);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.getAllSections = async (req, res) => {
+  try {
+    const departments = await Department.findAll(
+      {
+        where: { parent: req.param.id },
+      }
+      // {
+      //   include: {
+      //     model: Department,
+      //     as: "departments",
+      //   },
+      // }
+    );
 
     res.json(departments);
   } catch (error) {

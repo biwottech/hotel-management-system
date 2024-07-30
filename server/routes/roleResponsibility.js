@@ -12,6 +12,6 @@ router.get("/", getAllRoleResponsibilitys);
 router.get("/:id", getRoleResponsibilityById);
 router.post("/", createRoleResponsibility);
 router.put("/:id", updateRoleResponsibility);
-router.get("/:id", deleteRoleResponsibility);
+router.delete("/:id", deleteRoleResponsibility);
 
 module.exports = router;

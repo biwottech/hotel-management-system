@@ -4,14 +4,16 @@ const {
   createDepartment,
   getAllDepartments,
   getDepartmentById,
+  getAllSections,
   updateDepartment,
   deleteDepartment,
 } = require("../controllers/departmentController");
 
 router.get("/", getAllDepartments);
-router.get("/:id", getDepartmentById);
+router.get("/sections/:id", getAllSections);
+router.get("/single/:id", getDepartmentById);
 router.post("/", createDepartment);
 router.put("/:id", updateDepartment);
-router.get("/:id", deleteDepartment);
+router.delete("/:id", deleteDepartment);
 
 module.exports = router;
